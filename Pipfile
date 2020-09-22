@@ -8,6 +8,7 @@ python_version = '3.8'
 
 [packages]
 requests = "*"
+fastapi = "*"
 
 [dev-packages]
 black = "==19.10b0"
