@@ -1,22 +1,20 @@
-FROM python:3.8.3-slim
+FROM python:3.9.0-buster
 
+# creates app group and user
+RUN groupadd --system app-user && adduser --system --ingroup app-user app-user
+
+# creates app directory owned by the app user
 WORKDIR /app
+RUN chown app-user:app-user /app
 
-# Creates a specific application user for non-root execution of the app
-RUN groupadd --system appuser && adduser --system --ingroup appuser appuser
-RUN chown appuser:appuser /app
-
-# Installation of tools to install packages
+# installs pip
 RUN pip install --no-cache-dir --upgrade pip pipenv
 
-# Required packages installation layer (cached unless new dependencies are added)
+# dependencies install: separated layer for caching purposes
 COPY Pipfile Pipfile.lock ./
 RUN pipenv install --system --deploy --ignore-pipfile && \
-    pip uninstall --yes pipenv && \
-    rm Pipfile Pipfile.lock
+    pip uninstall --yes pipenv
 
-# Copies other files that are not related to install dependencies (chowns to app user)
-COPY --chown=appuser:appuser . ./
-
-# Execution as a non-root user
-USER appuser
+# copies app remaining files to /app and chowns to the app-user
+USER app-user
+COPY --chown=app-user:app-user . ./

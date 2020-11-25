@@ -1,19 +1,50 @@
 [[source]]
-url = 'https://pypi.python.org/simple'
+name = "pypi"
+url = "https://pypi.org/simple"
 verify_ssl = true
-name = 'pypi'
-
-[requires]
-python_version = '3.8'
-
-[packages]
-requests = "*"
-fastapi = "*"
-sqlalchemy = "*"
 
 [dev-packages]
-black = "==19.10b0"
-pylint = "*"
+# Local running tools
+python-dotenv = {extras = ["cli"], version = "*"}
+# Coding tools
 mypy = "*"
+flake8 = "*"
+black = "20.8b1"
 isort = "*"
+# Testing tools
+tox = "*"
 pytest = "*"
+pytest-dotenv = "*"
+pytest-django = "*"
+pytest-cov = "*"
+
+[packages]
+# Util functions
+requests = "*"
+python-dateutil = "*"
+python-json-logger = "*"
+# Web framework
+fastapi = "*"
+# ASGI application server
+uvicorn = "*"
+# Database drivers, ORM and migrations tool (alembic)
+sqlalchemy = "*"
+databases = {extras = ["postgresql"], version = "*"}
+alembic = "*"
+psycopg2-binary = "*"
+orm = "*"
+tortoise-orm = {extras = ["asyncpg"], version = "*"}
+aerich = "*"
+
+[scripts]
+"start:local" = "./scripts/start-local.sh"
+"start:docker" = "./scripts/start-docker.sh"
+"start:tests" = "./scripts/start-tests.sh"
+"migrate:init" = "./scripts/migrate-init.sh"
+"migrate" = "./scripts/migrate.sh"
+
+[requires]
+python_version = "3.9"
+
+[pipenv]
+allow_prereleases = true  # for black (! care for updates)

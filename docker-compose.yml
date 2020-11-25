@@ -1,0 +1,55 @@
+version: "3.8"
+
+x-build: &dockerfile-dev-build
+  context: .
+  dockerfile: Dockerfile.dev
+
+services:
+  db:
+    container_name: telegraph_db
+    image: postgres:10.1-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: telegraph_db
+      POSTGRES_USER: telegraph_app
+      POSTGRES_PASSWORD: telegraph_pwd
+
+  app:
+    container_name: telegraph_app
+    build: *dockerfile-dev-build
+    env_file: .docker.env
+    volumes:
+      - .:/app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    command:
+      [
+        "./scripts/wait-for-it.sh",
+        "db:5432",
+        "-t",
+        "120",
+        "--",
+        "./scripts/start-docker.sh",
+      ]
+
+  tests:
+    container_name: telegraph_tests
+    build: *dockerfile-dev-build
+    env_file:
+      - ./.docker.env
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    command:
+      [
+        "./scripts/wait-for-it.sh",
+        "db:5432",
+        "-t",
+        "30",
+        "--",
+        "./scripts/start-tests.sh"
+      ]
