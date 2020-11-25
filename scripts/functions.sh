@@ -1,4 +1,4 @@
-#!bin/sh
+#!/bin/bash
 
 # exports env variables on a given dotenv path
 # args: $1: path to the dotenv file

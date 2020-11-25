@@ -1,0 +1,11 @@
+# starts by ignoring everything
+*
+
+# allowed folders
+!src
+!scripts
+
+# allowed files
+!*.py
+!Pipfile*
+!aerich.ini

@@ -27,12 +27,8 @@ python-json-logger = "*"
 fastapi = "*"
 # ASGI application server
 uvicorn = "*"
-# Database drivers, ORM and migrations tool (alembic)
-sqlalchemy = "*"
-databases = {extras = ["postgresql"], version = "*"}
-alembic = "*"
+# Database drivers, ORM and migrations tool (aerich)
 psycopg2-binary = "*"
-orm = "*"
 tortoise-orm = {extras = ["asyncpg"], version = "*"}
 aerich = "*"
 
