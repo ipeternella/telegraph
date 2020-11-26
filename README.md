@@ -1,6 +1,6 @@
-# ✉️ 🐍 Telegraph 🐍 ✉️
+# 🔖 Telegraph 🐍
 
-An open-source Python chatting engine written with FastAPI and Tortoise ORM in order to use as much `asyncio` as possible! 🐍
+An open-source Python chatting engine written with FastAPI and Tortoise ORM in order to use as much `asyncio` as possible!
 
 ## Technologies
 
