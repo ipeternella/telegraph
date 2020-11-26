@@ -4,8 +4,6 @@ Main settings of the telegraph's project.
 import os
 from typing import List
 
-from dateutil.tz import UTC
-
 from src.infra.env import getenv_as_list
 from src.infra.env import getenv_or_exception
 
