@@ -11,14 +11,20 @@ function export_dotenv_variables() {
     set +o allexport
 }
 
-# make migrations and runs them aerich tool
-function aerich_migrate() {
+# make migrations and runs them with aerich tool
+function aerich_migrate_and_upgrade() {
     echo "🐍 Trying to run old migrations (if any)... 🐍"
     aerich upgrade  # there can't be unaplied migrations or weird errors happen, so... let's guarantee that first
 
     echo "🐍 Generating migrations with aerich (only for MIGRATION runs)... 🐍"
     aerich migrate
 
+    echo "🐍 Running new migrations with aerich (if any)... 🐍"
+    aerich upgrade
+}
+
+# just run migrations with aerich tool
+function aerich_upgrade() {
     echo "🐍 Running new migrations with aerich (if any)... 🐍"
     aerich upgrade
 }
