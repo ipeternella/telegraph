@@ -18,19 +18,11 @@ class EntityFromDatabaseMixin(BaseModel):
     updated_at: datetime
 
 
-class QuestionBaseMixin(BaseModel):
+class ChatRoomBaseMixin(BaseModel):
     """
-    Common properties for Question entities.
-    """
-
-    question: str = Field(max_length=255)
-    is_active: bool
-
-
-class AnswerBaseMixin(BaseModel):
-    """
-    Common properties for Answer entities.
+    Common properties for ChatRoom entities.
     """
 
-    answer: str = Field(max_length=255)
-    is_active: bool
+    name: str = Field(max_length=255)
+    description: str = Field(max_length=255)
+    max_concurrent_users: int

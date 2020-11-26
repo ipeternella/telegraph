@@ -1,34 +1,22 @@
 """
 Schemas used for some DTOs.
 """
-from typing import List
-
 from tortoise.contrib.pydantic import pydantic_model_creator
 from tortoise.contrib.pydantic.creator import pydantic_queryset_creator
 
-from src.core.boundaries.base_schemas import AnswerBaseMixin
-from src.core.boundaries.base_schemas import QuestionBaseMixin
-from src.core.models.entities import Answer
-from src.core.models.entities import Question
+from src.core.boundaries.base_schemas import ChatRoomBaseMixin
+from src.core.models.entities import ChatRoom
 
 
-class AnswerCreationRequest(AnswerBaseMixin):
+class ChatRoomCreationRequest(ChatRoomBaseMixin):
     """
-    Answer creation DTO.
+    Chat room creation DTO.
     """
 
-
-class QuestionCreationRequest(QuestionBaseMixin):
-    """
-    Question creation DTO.
-    """
+    name: str
+    description: str
+    max_concurrent_users: int
 
 
-QuestionResponse = pydantic_model_creator(Question)
-# QuestionQuerySetResponse = pydantic_queryset_creator(Question)
-
-AnswerResponse = pydantic_model_creator(Answer)
-
-
-class QuestionsResponse(QuestionBaseMixin):
-    answers: List[QuestionResponse]
+ChatRoomResponse = pydantic_model_creator(ChatRoom)
+ChatRoomQuerySetResponse = pydantic_queryset_creator(ChatRoom)

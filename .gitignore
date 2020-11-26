@@ -130,9 +130,3 @@ dmypy.json
 
 # Tests
 test-results.xml
-
-# gcp json
-*.json
-
-# local statics collection
-collected_static/*
