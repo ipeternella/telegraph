@@ -1,11 +1,8 @@
 """
 Schemas used for some DTOs.
 """
-from tortoise.contrib.pydantic import pydantic_model_creator
-from tortoise.contrib.pydantic.creator import pydantic_queryset_creator
-
 from src.core.boundaries.base_schemas import ChatRoomBaseMixin
-from src.core.models.entities import ChatRoom
+from src.core.boundaries.base_schemas import EntityFromDatabaseMixin
 
 
 class ChatRoomCreationRequest(ChatRoomBaseMixin):
@@ -13,10 +10,13 @@ class ChatRoomCreationRequest(ChatRoomBaseMixin):
     Chat room creation DTO.
     """
 
-    name: str
-    description: str
-    max_concurrent_users: int
+    pass
 
 
-ChatRoomResponse = pydantic_model_creator(ChatRoom)
-ChatRoomQuerySetResponse = pydantic_queryset_creator(ChatRoom)
+class ChatRoomResponse(EntityFromDatabaseMixin, ChatRoomBaseMixin):
+    """
+    Chat room response DTO.
+    """
+
+    class Config:
+        orm_mode = True
