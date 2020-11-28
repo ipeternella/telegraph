@@ -4,12 +4,16 @@ Main settings of the telegraph's project.
 import os
 from typing import List
 
+from src.infra.env import getenv_as_bool
 from src.infra.env import getenv_as_list
 from src.infra.env import getenv_or_default
 from src.infra.env import getenv_or_exception
 
 # project settings
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# debug
+DEBUG = getenv_as_bool("DEBUG")
 
 # server settings
 SERVER_BIND_ADDRESS = getenv_or_exception("SERVER_BIND_ADDRESS")
