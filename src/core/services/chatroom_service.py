@@ -4,6 +4,8 @@ Chatroom-related service.
 from typing import List
 from uuid import UUID
 
+from tortoise.exceptions import DoesNotExist
+
 from src.core.boundaries.schemas import ChatRoomCreationRequest
 from src.core.exceptions.services import EntityAlreadyExists
 from src.core.models.entities import ChatRoom
@@ -22,7 +24,10 @@ async def get_chatroom_by_id(id: UUID) -> ChatRoom:
     """
     Get a specific chatroom
     """
-    return await ChatRoom.get(id=id)
+    try:
+        return await ChatRoom.get(id=id)
+    except DoesNotExist as e:
+        raise DoesNotExist("Chatroom was not found.") from e
 
 
 async def create_chatroom(chatroom_creation_request: ChatRoomCreationRequest) -> ChatRoom:
@@ -30,7 +35,7 @@ async def create_chatroom(chatroom_creation_request: ChatRoomCreationRequest) ->
     Creates a new chatroom resource in the database.
     """
     if await ChatRoom.filter(name=chatroom_creation_request.name, is_active=True).exists():
-        raise EntityAlreadyExists
+        raise EntityAlreadyExists("Chatroom name is already taken.")
 
     created_chatroom = await ChatRoom.create(
         name=chatroom_creation_request.name,
