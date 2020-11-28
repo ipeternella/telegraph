@@ -1,13 +1,20 @@
 ### Chatroom: get room by id
-GET http://localhost:8080/api/v1/chatroom/id/ HTTP/1.1
+GET http://localhost:8080/api/v1/chatroom/id/
 Content-Type: application/json
 
-### Chatroom: get all rooms
-GET http://localhost:8080/api/v1/chatroom/ HTTP/1.1
+### Chatroom: get all rooms (default pagination)
+GET http://localhost:8080/api/v1/chatroom/
+Content-Type: application/json
+
+
+### Chatroom: get all rooms (paginated)
+GET http://localhost:8080/api/v1/chatroom/
+    ?offset=2
+    &limit=4
 Content-Type: application/json
 
 ### Chatroom: create new one
-POST http://localhost:8080/api/v1/chatroom/ HTTP/1.1
+POST http://localhost:8080/api/v1/chatroom/
 Content-Type: application/json
 
 {

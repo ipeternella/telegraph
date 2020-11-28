@@ -3,7 +3,6 @@ Base schemas reused by some DTOs.
 """
 from datetime import datetime
 from typing import Generic
-from typing import List
 from typing import Optional
 from typing import TypeVar
 from uuid import UUID
@@ -16,23 +15,29 @@ from pydantic.generics import GenericModel
 T = TypeVar("T")
 
 
-class ApiResponse(GenericModel, Generic[T]):
+class LimitOffsetPaginationResult(GenericModel, Generic[T]):
     """
     Basic API response schema.
 
     Examples:
     {
-        "results": {"hello": "world"},
-        "errors: null
-    }
-    {
-        "results": null,
-        "errors: ["Something went wrong!"]
+        "results": [
+            {"name": 3},  # skipped 2 results due to offset=2
+            {"name": 4},
+            {"name": 5},
+            {"name": 6},
+            {"name": 7},
+        ],  # 5 results due to limit=5
+        "total": 10,
+        "offset": 2,
+        "limit": 5,
     }
     """
 
+    total: int
+    limit: int
+    offset: int
     results: Optional[T]
-    errors: Optional[List[str]]
 
 
 class EntityFromDatabaseMixin(BaseModel):

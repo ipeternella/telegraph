@@ -4,14 +4,11 @@ Module with routes regarding the Chat Room entity.
 from typing import List
 
 from fastapi import APIRouter
-from fastapi.exceptions import HTTPException
 from pydantic.types import UUID4
-from tortoise.exceptions import DoesNotExist
 
-from src.core.boundaries.base_schemas import ApiResponse
+from src.core.boundaries.base_schemas import LimitOffsetPaginationResult
 from src.core.boundaries.schemas import ChatRoomCreationRequest
 from src.core.boundaries.schemas import ChatRoomResponse
-from src.core.exceptions.services import EntityAlreadyExists
 from src.core.services import chatroom_service
 
 chatroom_router = APIRouter()
@@ -27,13 +24,13 @@ async def get_chatroom_by_id(chatroom_id: UUID4):
     return chatroom
 
 
-@chatroom_router.get("/", response_model=ApiResponse[List[ChatRoomResponse]])
-async def get_chatrooms(skip: int = 0, limit: int = 10):
+@chatroom_router.get("/", response_model=LimitOffsetPaginationResult[List[ChatRoomResponse]])
+async def get_chatrooms(offset: int = 0, limit: int = 10):
     """
     Gets paginated chat rooms from the database.
     """
-    chatrooms = await chatroom_service.get_chatrooms(skip, limit)
-    return ApiResponse(results=chatrooms)
+    paginated_chatrooms, total = await chatroom_service.get_chatrooms(offset, limit)
+    return LimitOffsetPaginationResult(results=paginated_chatrooms, total=total, limit=limit, offset=offset)
 
 
 @chatroom_router.post("/", response_model=ChatRoomResponse)
