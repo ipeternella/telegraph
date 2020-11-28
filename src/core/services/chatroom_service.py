@@ -2,10 +2,10 @@
 Chatroom-related service.
 """
 from typing import List
-
-from fastapi.exceptions import HTTPException
+from uuid import UUID
 
 from src.core.boundaries.schemas import ChatRoomCreationRequest
+from src.core.exceptions.services import EntityAlreadyExists
 from src.core.models.entities import ChatRoom
 
 
@@ -18,12 +18,19 @@ async def get_chatrooms(skip: int = 0, limit: int = 10) -> List[ChatRoom]:
     return chatrooms
 
 
+async def get_chatroom_by_id(id: UUID) -> ChatRoom:
+    """
+    Get a specific chatroom
+    """
+    return await ChatRoom.get(id=id)
+
+
 async def create_chatroom(chatroom_creation_request: ChatRoomCreationRequest) -> ChatRoom:
     """
     Creates a new chatroom resource in the database.
     """
     if await ChatRoom.filter(name=chatroom_creation_request.name, is_active=True).exists():
-        raise HTTPException(status_code=422, detail="This chatroom name is already taken.")
+        raise EntityAlreadyExists
 
     created_chatroom = await ChatRoom.create(
         name=chatroom_creation_request.name,
