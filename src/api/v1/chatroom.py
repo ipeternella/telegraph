@@ -22,10 +22,7 @@ async def get_chatroom_by_id(chatroom_id: UUID4):
     """
     Gets paginated chat rooms from the database.
     """
-    try:
-        chatroom = await chatroom_service.get_chatroom_by_id(chatroom_id)
-    except DoesNotExist:
-        raise HTTPException(status_code=404, detail="Chatroom was not found.")
+    chatroom = await chatroom_service.get_chatroom_by_id(chatroom_id)
 
     return chatroom
 
@@ -44,9 +41,6 @@ async def create_chatroom(chatroom_creation_request: ChatRoomCreationRequest):
     """
     Creates a new chat room.
     """
-    try:
-        created_chatroom = await chatroom_service.create_chatroom(chatroom_creation_request)
-    except EntityAlreadyExists:
-        raise HTTPException(status_code=422, detail="Chatroom name is already taken.")
+    created_chatroom = await chatroom_service.create_chatroom(chatroom_creation_request)
 
     return created_chatroom
