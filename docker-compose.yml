@@ -10,10 +10,6 @@ services:
     image: postgres:10.1-alpine
     ports:
       - "5432:5432"
-    environment:
-      POSTGRES_DB: telegraph_db
-      POSTGRES_USER: telegraph_app
-      POSTGRES_PASSWORD: telegraph_pwd
 
   app:
     container_name: telegraph_app

@@ -5,7 +5,7 @@ from src.api.v1.chatroom import chatroom_router
 from src.settings import TORTOISE_ORM
 
 
-def create_server() -> FastAPI:
+def create_fastapi_server() -> FastAPI:
     """
     Creates and setups the main FastAPI-based server.
     """
@@ -19,3 +19,6 @@ def create_server() -> FastAPI:
     register_tortoise(server, config=TORTOISE_ORM)
 
     return server
+
+
+fastapi_server = create_fastapi_server()
