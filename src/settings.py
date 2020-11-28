@@ -5,6 +5,7 @@ import os
 from typing import List
 
 from src.infra.env import getenv_as_list
+from src.infra.env import getenv_or_default
 from src.infra.env import getenv_or_exception
 
 # project settings
@@ -33,3 +34,8 @@ TORTOISE_ORM = {
     "use_tz": False,
     "timezone": "UTC",
 }
+
+# databases - Tortoise ORM creates and drops 'test_{}' databases
+DATABASE_TESTING_CONNECTION_URI = getenv_or_default(
+    "DATABASE_TESTING_CONNECTION_URI", "postgres://postgres:@localhost:5432/test_{}"
+)

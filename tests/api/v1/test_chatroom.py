@@ -18,6 +18,10 @@ class ChatroomApiV1Tests(test.TestCase):
     """
 
     async def test_should_create_and_get_all_chatrooms(self):
+        """
+        Should create a chatroom with api/v1/chatroom call and assert final database state.
+        """
+
         # arrange
         endpoint = "api/v1/chatroom"
         chatroom_creation_data = {
