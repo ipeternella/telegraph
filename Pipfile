@@ -17,6 +17,8 @@ pytest = "*"
 pytest-dotenv = "*"
 pytest-django = "*"
 pytest-cov = "*"
+asynctest = "*"
+aerich = "~=0.3.3"
 
 [packages]
 # Util functions
@@ -30,7 +32,7 @@ uvicorn = "*"
 # Database drivers, ORM and migrations tool (aerich)
 psycopg2-binary = "*"
 tortoise-orm = {extras = ["asyncpg"], version = "*"}
-aerich = "*"
+httpx = "*"
 
 [scripts]
 "start:local" = "./scripts/start-local.sh"
