@@ -77,7 +77,7 @@ class ChatroomApiV1Tests(test.TestCase):
 
         assert creation_response.status_code == 200
         assert repeated_creation_response.status_code == 422
-        assert repeated_creation_response_body["detail"] == "This chatroom name is already taken."
+        assert repeated_creation_response_body["detail"] == "Chatroom name is already taken."
 
         # assert - db state
         assert len(all_db_chatrooms) == 1
