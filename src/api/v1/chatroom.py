@@ -8,7 +8,7 @@ from fastapi import APIRouter
 from src.core.boundaries.base_schemas import ApiResponse
 from src.core.boundaries.schemas import ChatRoomCreationRequest
 from src.core.boundaries.schemas import ChatRoomResponse
-from src.core.models.entities import ChatRoom
+from src.core.services import chatroom_service
 
 chatroom_router = APIRouter()
 
@@ -18,7 +18,7 @@ async def get_chatrooms(skip: int = 0, limit: int = 10):
     """
     Gets paginated chat rooms from the database.
     """
-    chatrooms = await ChatRoom.all().offset(skip).limit(limit)
+    chatrooms = await chatroom_service.get_chatrooms(skip, limit)
     return ApiResponse(results=chatrooms)
 
 
@@ -27,10 +27,5 @@ async def create_chatroom(chatroom_creation_request: ChatRoomCreationRequest):
     """
     Creates a new chat room.
     """
-    created_chatroom = await ChatRoom.create(
-        name=chatroom_creation_request.name,
-        description=chatroom_creation_request.description,
-        max_concurrent_users=chatroom_creation_request.max_concurrent_users,
-    )
-
+    created_chatroom = await chatroom_service.create_chatroom(chatroom_creation_request)
     return created_chatroom
