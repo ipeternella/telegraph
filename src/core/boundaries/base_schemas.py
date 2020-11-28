@@ -10,6 +10,7 @@ from uuid import UUID
 
 from pydantic import BaseModel
 from pydantic import Field
+from pydantic import validator
 from pydantic.generics import GenericModel
 
 T = TypeVar("T")
@@ -52,3 +53,11 @@ class ChatRoomBaseMixin(BaseModel):
     name: str = Field(max_length=255)
     description: str = Field(max_length=255)
     max_concurrent_users: int
+
+    @validator("name")
+    def username_alphanumeric(cls, name: str):
+        name_with_fixed_whitespaces = " ".join(name.split())
+        name_without_whitespaces = "".join(name.split())
+
+        assert name_without_whitespaces.isalnum(), "Chatroom name must contain only letters, numbers and spaces."
+        return name_with_fixed_whitespaces

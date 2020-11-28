@@ -12,8 +12,8 @@ class BaseEntityMixin(Model):
 
     id = fields.UUIDField(pk=True)
 
-    created_at = fields.DatetimeField(null=True, auto_now_add=True)
-    updated_at = fields.DatetimeField(null=True, auto_now=True)
+    created_at = fields.DatetimeField(null=True, auto_now_add=True, index=True)
+    updated_at = fields.DatetimeField(null=True, auto_now=True, index=True)
 
     class Meta:
         abstract = True
