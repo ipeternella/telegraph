@@ -14,7 +14,7 @@ class ChatRoomCreationRequest(ChatRoomBaseMixin):
     pass
 
 
-class UserCreationRequest(ChatUserBaseMixin):
+class ChatUserCreationRequest(ChatUserBaseMixin):
     """
     User creation DTO.
     """

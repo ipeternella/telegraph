@@ -9,7 +9,7 @@ from pydantic.types import UUID4
 
 from src.core.boundaries.base_schemas import LimitOffsetPaginationResult
 from src.core.boundaries.schemas import ChatUserResponse
-from src.core.boundaries.schemas import UserCreationRequest
+from src.core.boundaries.schemas import ChatUserCreationRequest
 from src.core.services import chatuser_service
 
 chatuser_router = APIRouter()
@@ -36,7 +36,7 @@ async def get_chatrooms(offset: int = 0, limit: int = 10, nick_name: Optional[st
 
 
 @chatuser_router.post("/", response_model=ChatUserResponse)
-async def create_user(user_creation_request: UserCreationRequest):
+async def create_user(user_creation_request: ChatUserCreationRequest):
     """
     Creates a new user.
     """

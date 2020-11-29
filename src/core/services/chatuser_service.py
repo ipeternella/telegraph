@@ -8,7 +8,7 @@ from typing import Tuple
 from pydantic.types import UUID4
 from tortoise.exceptions import DoesNotExist
 
-from src.core.boundaries.schemas import UserCreationRequest
+from src.core.boundaries.schemas import ChatUserCreationRequest
 from src.core.exceptions.services import EntityAlreadyExists
 from src.core.models.entities import ChatUser
 
@@ -38,7 +38,7 @@ async def get_user_by_id(id: UUID4) -> ChatUser:
         raise DoesNotExist("Chat user was not found.") from e
 
 
-async def create_user(user_creation_request: UserCreationRequest) -> ChatUser:
+async def create_user(user_creation_request: ChatUserCreationRequest) -> ChatUser:
     """
     Creates a new chat user resource in the database.
     """
