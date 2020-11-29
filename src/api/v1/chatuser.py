@@ -8,15 +8,15 @@ from fastapi import APIRouter
 from pydantic.types import UUID4
 
 from src.core.boundaries.base_schemas import LimitOffsetPaginationResult
-from src.core.boundaries.schemas import ChatUserResponse
 from src.core.boundaries.schemas import ChatUserCreationRequest
+from src.core.boundaries.schemas import ChatUserResponse
 from src.core.services import chatuser_service
 
 chatuser_router = APIRouter()
 
 
 @chatuser_router.get("/{chatuser_id}", response_model=ChatUserResponse)
-async def get_chatroom_by_id(chatuser_id: UUID4):
+async def get_chatuser_by_id(chatuser_id: UUID4):
     """
     Gets a chat user by its id.
     """
@@ -26,7 +26,7 @@ async def get_chatroom_by_id(chatuser_id: UUID4):
 
 
 @chatuser_router.get("/", response_model=LimitOffsetPaginationResult[List[ChatUserResponse]])
-async def get_chatrooms(offset: int = 0, limit: int = 10, nick_name: Optional[str] = None):
+async def get_chatusers(offset: int = 0, limit: int = 10, nick_name: Optional[str] = None):
     """
     Gets paginated chat users from the database.
     """
