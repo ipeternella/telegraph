@@ -7,7 +7,6 @@ from typing import Tuple
 from uuid import UUID
 
 from tortoise.exceptions import DoesNotExist
-from tortoise.queryset import QuerySet
 
 from src.core.boundaries.schemas import ChatRoomCreationRequest
 from src.core.exceptions.services import EntityAlreadyExists
