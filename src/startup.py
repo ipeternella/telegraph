@@ -9,6 +9,7 @@ from tortoise.contrib.starlette import register_tortoise
 from tortoise.exceptions import DoesNotExist
 
 from src.api.v1.chatroom import chatroom_router
+from src.api.v1.chatuser import chatuser_router
 from src.core.exceptions.services import EntityAlreadyExists
 from src.settings import TORTOISE_ORM
 
@@ -32,6 +33,7 @@ def _setup_routes(fastapi_server: FastAPI) -> None:
     Setups the server routes.
     """
     fastapi_server.include_router(chatroom_router, prefix="/api/v1/chatroom")
+    fastapi_server.include_router(chatuser_router, prefix="/api/v1/chatuser")
 
 
 def _setup_databases(fastapi_server: FastAPI) -> None:

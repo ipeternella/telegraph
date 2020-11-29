@@ -18,7 +18,7 @@ chatroom_router = APIRouter()
 @chatroom_router.get("/{chatroom_id}", response_model=ChatRoomResponse)
 async def get_chatroom_by_id(chatroom_id: UUID4):
     """
-    Gets paginated chat rooms from the database.
+    Gets a chatroom by its id.
     """
     chatroom = await chatroom_service.get_chatroom_by_id(chatroom_id)
 

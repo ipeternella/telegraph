@@ -60,9 +60,31 @@ class ChatRoomBaseMixin(BaseModel):
     max_concurrent_users: int
 
     @validator("name")
-    def username_alphanumeric(cls, name: str):
+    def name_alphanumeric(cls, name: str):
         name_with_fixed_whitespaces = " ".join(name.split())
         name_without_whitespaces = "".join(name.split())
 
         assert name_without_whitespaces.isalnum(), "Chatroom name must contain only letters, numbers and spaces."
+        return name_with_fixed_whitespaces
+
+
+class ChatUserBaseMixin(BaseModel):
+    """
+    Common properties for User entities.
+    """
+
+    # personal data
+    first_name: str = Field(max_length=255)
+    last_name: str = Field(max_length=255)
+    age: int = Field(ge=16, le=120)  # 16 <= age <= 120
+
+    # app data
+    nick_name: str = Field(max_length=255)
+
+    @validator("first_name", "last_name")
+    def first_and_last_name_validation(cls, name: str):
+        name_with_fixed_whitespaces = " ".join(name.split())
+        name_without_whitespaces = "".join(name.split())
+
+        assert name_without_whitespaces.isalpha(), "First and last names must contain only letters and spaces."
         return name_with_fixed_whitespaces

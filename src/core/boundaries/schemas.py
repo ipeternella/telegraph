@@ -2,12 +2,21 @@
 Schemas used for some DTOs.
 """
 from src.core.boundaries.base_schemas import ChatRoomBaseMixin
+from src.core.boundaries.base_schemas import ChatUserBaseMixin
 from src.core.boundaries.base_schemas import EntityFromDatabaseMixin
 
 
 class ChatRoomCreationRequest(ChatRoomBaseMixin):
     """
-    Chat room creation DTO.
+    Chatroom creation DTO.
+    """
+
+    pass
+
+
+class UserCreationRequest(ChatUserBaseMixin):
+    """
+    User creation DTO.
     """
 
     pass
@@ -15,8 +24,17 @@ class ChatRoomCreationRequest(ChatRoomBaseMixin):
 
 class ChatRoomResponse(EntityFromDatabaseMixin, ChatRoomBaseMixin):
     """
-    Chat room response DTO.
+    Chatroom response DTO.
     """
 
     class Config:
-        orm_mode = True
+        orm_mode = True  # response will be an object, not a dict
+
+
+class ChatUserResponse(EntityFromDatabaseMixin, ChatUserBaseMixin):
+    """
+    User response DTO.
+    """
+
+    class Config:
+        orm_mode = True  # response will be an object, not a dict

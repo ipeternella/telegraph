@@ -1,0 +1,27 @@
+### gets a user by id
+GET http://localhost:8080/api/v1/chatuser/id/
+Content-Type: application/json
+
+### gets paginated
+GET http://localhost:8080/api/v1/chatuser/
+    ?offset=0
+    &limit=10
+Content-Type: application/json
+
+### gets by name (paginated)
+GET http://localhost:8080/api/v1/chatuser/
+    ?offset=0
+    &limit=10
+    &nick_name=igu
+Content-Type: application/json
+
+### creates a new user
+POST http://localhost:8080/api/v1/chatuser/
+Content-Type: application/json
+
+{
+    "first_name": "igor",
+    "last_name": "grillo peternella",
+    "age": 29,
+    "nick_name": "igu"
+}
