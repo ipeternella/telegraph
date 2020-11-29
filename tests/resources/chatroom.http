@@ -6,11 +6,18 @@ Content-Type: application/json
 GET http://localhost:8080/api/v1/chatroom/
 Content-Type: application/json
 
-
 ### Chatroom: get all rooms (paginated)
 GET http://localhost:8080/api/v1/chatroom/
     ?offset=2
     &limit=4
+Content-Type: application/json
+
+### Chatroom: get chatrooms by name (paginated)
+GET http://localhost:8080/api/v1/chatroom/
+    ?offset=0
+    &limit=10
+    &name=igu room
+    
 Content-Type: application/json
 
 ### Chatroom: create new one
@@ -18,7 +25,7 @@ POST http://localhost:8080/api/v1/chatroom/
 Content-Type: application/json
 
 {
-    "name": "igu room",
+    "name": "le room",
     "description": "a nice room",
     "max_concurrent_users": 2
 }

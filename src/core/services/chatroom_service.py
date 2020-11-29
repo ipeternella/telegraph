@@ -2,22 +2,29 @@
 Chatroom-related service.
 """
 from typing import List
+from typing import Optional
 from typing import Tuple
 from uuid import UUID
 
 from tortoise.exceptions import DoesNotExist
+from tortoise.queryset import QuerySet
 
 from src.core.boundaries.schemas import ChatRoomCreationRequest
 from src.core.exceptions.services import EntityAlreadyExists
 from src.core.models.entities import ChatRoom
 
 
-async def get_chatrooms(offset: int = 0, limit: int = 10) -> Tuple[List[ChatRoom], int]:
+async def get_chatrooms(offset: int = 0, limit: int = 10, name: Optional[str] = None) -> Tuple[List[ChatRoom], int]:
     """
     Gets a paginated slice of chatrooms from the database.
     """
-    paginated_chatrooms = await ChatRoom.all().offset(offset).limit(limit)
-    total = await ChatRoom.all().count()
+    if name is not None:
+        chatroom_queryset = ChatRoom.filter(name=name)
+    else:
+        chatroom_queryset = ChatRoom.all()
+
+    paginated_chatrooms = await chatroom_queryset.offset(offset).limit(limit)
+    total = await chatroom_queryset.count()
 
     return paginated_chatrooms, total
 

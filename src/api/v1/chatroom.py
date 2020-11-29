@@ -2,6 +2,7 @@
 Module with routes regarding the Chat Room entity.
 """
 from typing import List
+from typing import Optional
 
 from fastapi import APIRouter
 from pydantic.types import UUID4
@@ -25,11 +26,12 @@ async def get_chatroom_by_id(chatroom_id: UUID4):
 
 
 @chatroom_router.get("/", response_model=LimitOffsetPaginationResult[List[ChatRoomResponse]])
-async def get_chatrooms(offset: int = 0, limit: int = 10):
+async def get_chatrooms(offset: int = 0, limit: int = 10, name: Optional[str] = None):
     """
     Gets paginated chat rooms from the database.
     """
-    paginated_chatrooms, total = await chatroom_service.get_chatrooms(offset, limit)
+    paginated_chatrooms, total = await chatroom_service.get_chatrooms(offset, limit, name)
+
     return LimitOffsetPaginationResult(results=paginated_chatrooms, total=total, limit=limit, offset=offset)
 
 
