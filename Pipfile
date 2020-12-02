@@ -32,7 +32,7 @@ uvicorn = "*"
 psycopg2-binary = "*"
 tortoise-orm = {extras = ["asyncpg"], version = "*"}
 httpx = "*"
-aerich = "~=0.3.3"
+aerich = "*"
 
 [scripts]
 "start:local" = "./scripts/start-local.sh"
